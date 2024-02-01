@@ -14,6 +14,10 @@ import multer from 'multer';
 import { createReadStream, promises as fsPromises } from 'fs';
 import { resolve, dirname, join } from 'path';
 import { fileURLToPath } from 'url';
+import AdminRouter from './Routes/Admin.Router.js';
+import WorkerRouter from './Routes/Worker.Router.js';
+import JobRouter from './Routes/Jobs.Router.js';
+import PartsRouter from './Routes/Parts.Router.js';
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -117,6 +121,12 @@ async function fileExists(filePath) {
   }
 }
 
+
+
+app.use("/admin",AdminRouter)
+app.use("/api/worker",WorkerRouter)
+app.use("/api/job",JobRouter)
+app.use("/api/parts",PartsRouter)
 
 app.listen(port, () =>{
     connection();
