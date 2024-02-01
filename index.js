@@ -18,6 +18,7 @@ import AdminRouter from './Routes/Admin.Router.js';
 import WorkerRouter from './Routes/Worker.Router.js';
 import JobRouter from './Routes/Jobs.Router.js';
 import PartsRouter from './Routes/Parts.Router.js';
+import InvoiceRouter from './Routes/Invoice.Router.js';
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -127,7 +128,7 @@ app.use("/admin",AdminRouter)
 app.use("/api/worker",WorkerRouter)
 app.use("/api/job",JobRouter)
 app.use("/api/parts",PartsRouter)
-
+app.use("/api/invoice",InvoiceRouter)
 app.listen(port, () =>{
     connection();
     console.log(`Zoom Meeting SDK Auth Endpoint Sample Node.js listening on port ${port}!`)
