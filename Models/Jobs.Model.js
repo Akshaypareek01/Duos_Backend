@@ -7,7 +7,7 @@ const jobSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: false,
   },
   status: {
     type: String,
@@ -18,10 +18,6 @@ const jobSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Part', // Reference to the Part model
   }],
-  address: {
-    type: String,
-    required: true,
-  },
   assignedWorker: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Worker', // Reference to the Worker model (if applicable)
@@ -29,18 +25,31 @@ const jobSchema = new mongoose.Schema({
   user: {
     name: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
-      required: true,
     },
     mobileNumber: {
       type: String,
-      required: true,
     },
+    address: {
+      type: String,
+    },
+    city:{
+      type: String,
+    },
+    country:{
+      type: String
+    },
+    pincode:{
+      type:String
+    }
     // Add other user details as needed (e.g., address)
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 const Job = mongoose.model('Job', jobSchema);

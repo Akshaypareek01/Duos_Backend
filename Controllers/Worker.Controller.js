@@ -4,9 +4,11 @@ import Worker from "../Models/Worker.Model.js";
 // Controller function to create a new worker
 export const createWorker = async (req, res) => {
   try {
+    console.log("worker data ==>", req.body)
     const newWorker = await Worker.create(req.body);
     res.status(201).json(newWorker);
   } catch (error) {
+    console.log("Error creating worker ==>",error)
     res.status(500).json({ error: error.message });
   }
 };
@@ -65,19 +67,24 @@ export const deleteWorker = async (req, res) => {
 };
 
 // Controller function for worker login
-export const workerLogin = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const worker = await Worker.findOne({ username });
+export const loginWorker = async (req, res) => {
+  const { mobile, pin } = req.body;
 
-    if (!worker || !worker.comparePassword(password)) {
-      return res.status(401).json({ message: 'Invalid username or password' });
+  try {
+    // Find the worker by mobile number and pin
+    const worker = await Worker.findOne({ mobile, pin });
+
+    if (!worker) {
+      return res.status(401).json({ message: 'Invalid mobile number or pin' });
     }
 
-    // If login is successful, you might want to generate a token or session
-    res.status(200).json({ message: 'Login successful', worker });
+    // You can add additional checks or validations here if needed
+
+    // If everything is okay, return success
+    return res.status(200).json({ message: 'Login successful', worker });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    return res.status(500).json({ message: 'Internal Server Error' });
   }
 };
 

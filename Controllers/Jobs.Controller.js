@@ -12,7 +12,7 @@ export const createJob = async (req, res) => {
 // Controller function to get all jobs
 export const getAllJobs = async (req, res) => {
   try {
-    const jobs = await Job.find();
+    const jobs = await Job.find().populate('assignedWorker').populate('partsRequired').exec();
     res.status(200).json(jobs);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -22,7 +22,7 @@ export const getAllJobs = async (req, res) => {
 // Controller function to get job by ID
 export const getJobById = async (req, res) => {
   try {
-    const job = await Job.findById(req.params.id).populate('partsRequired');
+    const job = await Job.findById(req.params.id).populate('assignedWorker').populate('partsRequired').exec();
     if (!job) {
       return res.status(404).json({ message: 'Job not found' });
     }

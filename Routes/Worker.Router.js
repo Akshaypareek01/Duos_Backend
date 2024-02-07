@@ -1,5 +1,5 @@
 import express from 'express';
-import { changeWorkerStatus, createWorker, deleteWorker, getAllWorkers, getWorkerById, updateWorker, updateWorkerPassword, updateWorkerUsername, workerLogin } from '../Controllers/Worker.Controller.js';
+import { changeWorkerStatus, createWorker, deleteWorker, getAllWorkers, getWorkerById, loginWorker, updateWorker, updateWorkerPassword, updateWorkerUsername } from '../Controllers/Worker.Controller.js';
 
 
 const WorkerRouter = express.Router();
@@ -20,7 +20,7 @@ WorkerRouter.put('/:id', updateWorker);
 WorkerRouter.delete('/:id',deleteWorker);
 
 // Route for worker login
-WorkerRouter.post('/login', workerLogin);
+WorkerRouter.post('/login', loginWorker);
 
 // Route to change the status of a worker by ID
 WorkerRouter.put('/:id/change-status', changeWorkerStatus);

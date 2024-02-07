@@ -5,10 +5,28 @@ const workerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  expertise: {
+  mobile: {
     type: String,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
   },
   description: {
+    type: String,
+  },
+  pincode: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  city: {
     type: String,
   },
   country: {
@@ -27,19 +45,17 @@ const workerSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['technician', 'worker'],
-    default: 'worker',
+    enum: ['technician', 'spare parts'],
+    default: 'technician',
   },
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
+  pin: {
     type: String,
     required: true,
   },
-  // Add other worker details as needed
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 const Worker = mongoose.model('Worker', workerSchema);
