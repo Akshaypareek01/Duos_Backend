@@ -1,5 +1,5 @@
 import express from 'express';
-import { createJob, deleteJob, getAllJobs, getJobById, updateAssignedWorker, updateJobStatus, updatePartsRequired } from '../Controllers/Jobs.Controller.js';
+import { createJob, deleteJob, getAllJobs, getJobById, updateAssignedWorker, updateJob, updateJobStatus, updatePartsRequired } from '../Controllers/Jobs.Controller.js';
 
 
 const JobRouter = express.Router();
@@ -24,5 +24,7 @@ JobRouter.put('/:id/update-assigned-worker', updateAssignedWorker);
 
 // Route to delete job by ID
 JobRouter.delete('/:id', deleteJob);
+
+JobRouter.put('/updateJob', updateJob);
 
 export default JobRouter;

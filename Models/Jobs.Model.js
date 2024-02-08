@@ -49,7 +49,16 @@ const jobSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
+  updatedDetails :{
+    type: String,
+    required: false,
+  },
+  images: [{
+    type: String,
+    required: false,
+  }],
+  
 });
 
 const Job = mongoose.model('Job', jobSchema);

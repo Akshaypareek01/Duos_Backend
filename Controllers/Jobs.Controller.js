@@ -98,3 +98,37 @@ export const deleteJob = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+export const updateJob = async (req, res) => {
+  const { jobId, updatedDetails, images, status } = req.body;
+
+  try {
+    // Construct update object based on provided data
+    const updateObject = {};
+    
+    if (updatedDetails) {
+      updateObject.updatedDetails = updatedDetails;
+    }
+
+    if (images && images.length > 0) {
+      updateObject.$push = { images };
+    }
+
+    if (status) {
+      updateObject.status = status;
+    }
+
+    // Update the job with the constructed update object
+    const updatedJob = await Job.findByIdAndUpdate(
+      jobId,
+      updateObject,
+      { new: true }
+    );
+
+    res.status(200).json(updatedJob);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
