@@ -55,9 +55,9 @@ const jobSchema = new mongoose.Schema({
     required: false,
   },
   images: [{
-    type: String,
-    required: false,
-  }],
+    filename: String, // Store the filename of the image
+    path: String,     // Store the path to the image in the media folder
+}],
   
 });
 

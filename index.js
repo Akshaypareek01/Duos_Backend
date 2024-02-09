@@ -19,13 +19,13 @@ import WorkerRouter from './Routes/Worker.Router.js';
 import JobRouter from './Routes/Jobs.Router.js';
 import PartsRouter from './Routes/Parts.Router.js';
 import InvoiceRouter from './Routes/Invoice.Router.js';
+import { updateJob } from './Controllers/Jobs.Controller.js';
 
 const app = express()
 const port = process.env.PORT || 4000
 
 app.use(bodyParser.json(), cors())
 app.options('*', cors())
-
 app.get('/', (req, res) => {
     res.json({
       message: "Server is running ...."
@@ -53,12 +53,13 @@ app.get('/', (req, res) => {
       cb(null, 'media/'); // Set the destination folder for image storage
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname); // Use the original filename for the stored image
+      const uniqueFilename = `${Date.now()}-${file.originalname}`;
+    cb(null, uniqueFilename); // Use the original filename for the stored image
     },
   });
   const upload = multer({ storage: storage });
 // app.post('/student_login',loginUser)
-// app.post('/student_signup',upload.array('images', 1),createUser)
+
 // app.post('/teacher_login',loginTeacher)
 // app.post('/teacher_signup',upload.array('images', 2),createTeacher)
 // app.use('/admin',adminRouter)
@@ -123,7 +124,7 @@ async function fileExists(filePath) {
 }
 
 
-
+app.put('/updateJob',upload.array('images', 3),updateJob)
 app.use("/admin",AdminRouter)
 app.use("/api/worker",WorkerRouter)
 app.use("/api/job",JobRouter)

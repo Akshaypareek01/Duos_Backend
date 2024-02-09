@@ -135,7 +135,8 @@ export const updateWorkerPassword = async (req, res) => {
     }
 
     // Update the password
-    updatedWorker.password = newPassword;
+    updatedWorker.pin = newPassword;
+    console.log(updatedWorker)
     await updatedWorker.save();
 
     res.status(200).json({ message: 'Password updated successfully' });
