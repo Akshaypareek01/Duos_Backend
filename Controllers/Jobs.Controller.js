@@ -165,7 +165,8 @@ export const deleteImage = async (req, res) => {
 
     // Remove the image file from the media folder
     const mediaPath = path.join(fileURLToPath(new URL(import.meta.url)), '..', 'media');
-    const modifiedPath = mediaPath.replace('\\Controllers', '');
+    const modifiedPath = mediaPath ;
+    //  mediaPath.replace('\\Controllers', '');
     const imagePath = path.join(modifiedPath, job.images[imageIndex].filename);
     // console.log(`media Path :` + imagePath);
     const fileExists = await fs.access(imagePath)
