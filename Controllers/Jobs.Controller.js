@@ -165,10 +165,10 @@ export const deleteImage = async (req, res) => {
 
     // Remove the image file from the media folder
     const mediaPath = path.join(fileURLToPath(new URL(import.meta.url)), '..', 'media');
-    const modifiedPath = mediaPath ;
+    const modifiedPath = mediaPath.replace('\\Controllers', '') ;
     //  mediaPath.replace('\\Controllers', '');
     const imagePath = path.join(modifiedPath, job.images[imageIndex].filename);
-    console.log(`media Path :` + mediaPath);
+    console.log(`media Path :` + modifiedPath);
     console.log(`image Path :` + imagePath);
     const fileExists = await fs.access(imagePath)
   .then(() => true)
@@ -182,7 +182,8 @@ if (fileExists) {
 } else {
   console.log('Image file not found');
   res.status(400).json({ message: 'Image not found',
-mediaPath: mediaPath
+mediaPath: modifiedPath,
+imagePath:imagePath
 });
 }
 
