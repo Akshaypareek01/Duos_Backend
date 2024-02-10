@@ -168,7 +168,8 @@ export const deleteImage = async (req, res) => {
     const modifiedPath = mediaPath ;
     //  mediaPath.replace('\\Controllers', '');
     const imagePath = path.join(modifiedPath, job.images[imageIndex].filename);
-    // console.log(`media Path :` + imagePath);
+    console.log(`media Path :` + mediaPath);
+    console.log(`image Path :` + imagePath);
     const fileExists = await fs.access(imagePath)
   .then(() => true)
   .catch(() => false);
@@ -180,7 +181,9 @@ if (fileExists) {
     res.status(200).json({ message: 'Image deleted successfully' });
 } else {
   console.log('Image file not found');
-  res.status(400).json({ message: 'Image not found' });
+  res.status(400).json({ message: 'Image not found',
+mediaPath: mediaPath
+});
 }
 
     // Remove the image from the Mongoose data
