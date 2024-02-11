@@ -2,6 +2,7 @@ import Job from "../Models/Jobs.Model.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs/promises';
+import mongoose from "mongoose";
 export const createJob = async (req, res) => {
   try {
     const newJob = await Job.create(req.body);
@@ -14,7 +15,7 @@ export const createJob = async (req, res) => {
 // Controller function to get all jobs
 export const getAllJobs = async (req, res) => {
   try {
-    const jobs = await Job.find().populate('assignedWorker').populate('partsRequired').exec();
+    const jobs = await Job.find().populate('assignedWorker').populate('partsRequired').populate('assignedSparePartWorker').exec();
     res.status(200).json(jobs);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -24,7 +25,7 @@ export const getAllJobs = async (req, res) => {
 // Controller function to get job by ID
 export const getJobById = async (req, res) => {
   try {
-    const job = await Job.findById(req.params.id).populate('assignedWorker').populate('partsRequired').exec();
+    const job = await Job.findById(req.params.id).populate('assignedWorker').populate('partsRequired').populate('assignedSparePartWorker').exec();
     if (!job) {
       return res.status(404).json({ message: 'Job not found' });
     }
@@ -192,5 +193,37 @@ imagePath:imagePath
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+export const updatePartsRequiredController = async (req, res) => {
+  const jobId = req.params.id; // Assuming you have a route parameter for the job ID
+  const { newPartIds } = req.body;
+
+  try {
+    // Find the job by ID
+    const job = await Job.findById(jobId);
+
+    // Check if the job exists
+    if (!job) {
+      return res.status(404).json({ message: 'Job not found' });
+    }
+
+    // Fetch existing parts for the job
+    const existingParts = job.partsRequired.map(part => part.toString());
+
+    // Combine existing parts with new parts, ensuring no duplicates
+    const combinedParts = [...existingParts, ...newPartIds.filter(partId => !existingParts.includes(partId))];
+
+    // Update the job's partsRequired array
+    job.partsRequired = combinedParts;
+
+    // Save the updated job
+    await job.save();
+
+    res.status(200).json({ message: 'PartsRequired array updated successfully', job });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 };

@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const adminSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: false,
+  
+  },
   username: {
     type: String,
     required: true,
@@ -14,6 +19,10 @@ const adminSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+  },
+  status:{
+    type:Boolean,
+    default:true
   },
   createdAt: {
     type: Date,

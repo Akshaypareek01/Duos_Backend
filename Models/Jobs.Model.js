@@ -22,6 +22,10 @@ const jobSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Worker', // Reference to the Worker model (if applicable)
   },
+  assignedSparePartWorker: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Worker', // Reference to the Worker model (if applicable)
+  },
   user: {
     name: {
       type: String,

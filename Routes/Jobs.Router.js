@@ -1,5 +1,5 @@
 import express from 'express';
-import { createJob, deleteImage, deleteJob, getAllJobs, getJobById, updateAssignedWorker, updateJob, updateJobStatus, updatePartsRequired } from '../Controllers/Jobs.Controller.js';
+import { createJob, deleteImage, deleteJob, getAllJobs, getJobById, updateAssignedWorker, updateJob, updateJobStatus, updatePartsRequired, updatePartsRequiredController } from '../Controllers/Jobs.Controller.js';
 
 
 const JobRouter = express.Router();
@@ -27,4 +27,5 @@ JobRouter.delete('/:id', deleteJob);
 
 JobRouter.put('/updateJob', updateJob);
 JobRouter.post('/deleteImage', deleteImage);
+JobRouter.post('/:id/update-parts',updatePartsRequiredController)
 export default JobRouter;

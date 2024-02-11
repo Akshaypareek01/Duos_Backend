@@ -1,10 +1,12 @@
 import express from 'express';
-import { changePassword, changeUsername, createAdmin, deleteAdmin, getAdminById, getAllAdmins, updateAdmin } from '../Controllers/Admin.Controller.js';
+import { changePassword, changeUsername, createAdmin, deleteAdmin, getAdminById, getAllAdmins, loginController, updateAdmin } from '../Controllers/Admin.Controller.js';
 
 
 const AdminRouter = express.Router();
 
 // Route to create a new admin
+AdminRouter.post('/login',loginController)
+
 AdminRouter.post('/', createAdmin);
 
 // Route to get all admins
