@@ -11,7 +11,7 @@ const jobSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'inprogress', 'completed', 'onhold'],
+    enum: ['pending', 'inprogress', 'completed', 'onhold',"worker traveling"],
     default: 'pending',
   },
   partsRequired: [{
@@ -62,6 +62,22 @@ const jobSchema = new mongoose.Schema({
     filename: String, // Store the filename of the image
     path: String,     // Store the path to the image in the media folder
 }],
+jobDate: {
+  type: Date, // Job date field
+  required: true,
+},
+startTime: {
+  type: Date, // Start time field
+  required: true,
+},
+stopTime: {
+  type: Date, // Stop time field
+  required: true,
+},
+travelTime:{
+  type:Number,
+  required: true,
+}
   
 });
 
