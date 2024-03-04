@@ -57,6 +57,7 @@ export const updatePartsRequired = async (req, res) => {
 export const updateJobStatus = async (req, res) => {
   try {
     const { status } = req.body;
+    console.log("Status ==>", status);
     const updatedJob = await Job.findByIdAndUpdate(
       req.params.id,
       { status },

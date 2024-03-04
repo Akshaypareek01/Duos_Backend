@@ -11,7 +11,7 @@ const jobSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'inprogress', 'completed', 'onhold',"worker traveling"],
+    enum: ['pending', 'inprogress', 'completed', 'onhold',"worker traveling","travel completed"],
     default: 'pending',
   },
   partsRequired: [{
